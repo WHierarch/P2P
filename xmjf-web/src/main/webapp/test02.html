@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/assets/jquery-3.1.0.min.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+</head>
+<body>
+
+<div id="container" style="width: 600px;height:400px;"></div>
+
+<script>
+    var chart = null;
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                spacing : [100, 0 , 40, 0]
+            },
+            title: {
+                floating:true,
+                text: '总资产:10000'
+            }/*,
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            }*/,
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    point: {
+                        events: {
+                            /*mouseOver: function(e) {  // 鼠标滑过时动态更新标题
+                                // 标题更新函数，API 地址：https://api.hcharts.cn/highcharts#Chart.setTitle
+                                chart.setTitle({
+                                    text: e.target.name+ '\t'+ e.target.y
+                                });
+                            }*/
+                            //,
+                            // click: function(e) { // 同样的可以在点击事件里处理
+                            //     chart.setTitle({
+                            //         text: e.point.name+ '\t'+ e.point.y + ' %'
+                            //     });
+                            // }
+                        }
+                    },
+                }
+            },
+            series: [{
+                type: 'pie',
+                innerSize: '80%',
+                name: '资产详情',
+                data: [
+                    ["可用余额",400],
+                    ['冻结金额', 100],
+                    ["可提现金额",200],
+                    ['锁定余额', 100]
+                ]
+            }]
+        }, function(c) {
+            // 环形图圆心
+            var centerY = c.series[0].center[1],
+                titleHeight = parseInt(c.title.styles.fontSize);
+            c.setTitle({
+                y:centerY + titleHeight/2
+            });
+            chart = c;
+        });
+    });
+
+</script>
+</body>
+</html>
